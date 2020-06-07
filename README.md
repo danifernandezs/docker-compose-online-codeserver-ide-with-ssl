@@ -7,6 +7,15 @@
 - [jwilder -> Nginx Proxy](https://hub.docker.com/r/jwilder/nginx-proxy)
 - [jrcs -> LetsEncrypt nginx](https://hub.docker.com/r/jrcs/letsencrypt-nginx-proxy-companion)
 
+## Parameters to adjust
+
+vscode Container:
+- PASSWORD=
+- SUDO_PASSWORD=
+- PROXY_DOMAIN=
+- VIRTUAL_HOST=
+- LETSENCRYPT_HOST=
+
 ## License
 
 <img src="./img/by-sa.png">
