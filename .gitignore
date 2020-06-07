@@ -1,0 +1,6 @@
+config/.config
+config/.local
+config/data
+config/extensions
+config/workspace
+config/.gitconfig
