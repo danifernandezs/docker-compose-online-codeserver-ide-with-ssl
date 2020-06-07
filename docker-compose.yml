@@ -1,22 +1,53 @@
 version: '2'
 services:
 
+# Nginx Proxy -> Traffic to the vscode container
+# https://hub.docker.com/r/jwilder/nginx-proxy
+  nginx-proxy:
+    container_name: proxy
+    image: jwilder/nginx-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+      - ./vhostd:/etc/nginx/vhost.d
+      - ./html:/usr/share/nginx/html
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+
+# LetsEncrypt container, synced with nginx
+# https://hub.docker.com/r/jrcs/letsencrypt-nginx-proxy-companion
+  letsencrypt:
+    container_name: auto-certs
+    image: jrcs/letsencrypt-nginx-proxy-companion:v1.12.1
+    restart: unless-stopped
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    volumes:
+      - ./certs:/etc/nginx/certs:rw
+      - ./vhostd:/etc/nginx/vhost.d
+      - ./html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
 # LinuxServer VSCode Container
 # https://hub.docker.com/r/linuxserver/code-server
-
   vscode:
     container_name: vscode
-    image: linuxserver/code-server
+    image: linuxserver/code-server:v3.4.0-ls46
     restart: unless-stopped
+    expose:
+      - 8443
     environment:
       - TZ=Europe/Madrid
       - PASSWORD=<PASSWORD>
       - SUDO_PASSWORD=<ROOT_PASSWORD>
       - PROXY_DOMAIN=vscode.<DNS>
+      - VIRTUAL_HOST=vscode.<DNS>
+      - LETSENCRYPT_HOST=vscode.<DNS>
     volumes:
       - ./config:/config
 # SSH private key here, to git
       - ./config/.ssh:/config/.ssh
-    ports:
-      - 8443:8443
