@@ -1,8 +1,11 @@
-# docker-compose-online-codeserver-ide-with-ssl
-Code-server is VS Code running on a container, secured with ssl and LetsEncrypt certificate
+# Code-Server running with docker-compose, nginx proxy and ssl secured
 
+[Code-server](https://coder.com/) is __VS Code__ running on a container, secured with ssl and LetsEncrypt certificate.
 
-
+## Containers used
+- [LinuxServer -> Code-Server](https://hub.docker.com/r/linuxserver/code-server)
+- [jwilder -> Nginx Proxy](https://hub.docker.com/r/jwilder/nginx-proxy)
+- [jrcs -> LetsEncrypt nginx](https://hub.docker.com/r/jrcs/letsencrypt-nginx-proxy-companion)
 
 ## License
 
