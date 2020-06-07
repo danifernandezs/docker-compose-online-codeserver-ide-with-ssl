@@ -4,3 +4,6 @@ config/data
 config/extensions
 config/workspace
 config/.gitconfig
+certs/*
+vhostd/*
+html/*
