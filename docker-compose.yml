@@ -1,0 +1,22 @@
+version: '2'
+services:
+
+
+# LinuxServer VSCode Container
+# https://hub.docker.com/r/linuxserver/code-server
+
+  vscode:
+    container_name: vscode
+    image: linuxserver/code-server
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Madrid
+      - PASSWORD=<PASSWORD>
+      - SUDO_PASSWORD=<ROOT_PASSWORD>
+      - PROXY_DOMAIN=vscode.<DNS>
+    volumes:
+      - ./config:/config
+# SSH private key here, to git
+      - ./config/.ssh:/config/.ssh
+    ports:
+      - 8443:8443
