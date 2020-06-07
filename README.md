@@ -10,11 +10,14 @@
 ## Parameters to adjust
 
 vscode Container:
+- Folder config/.ssh, you need the private key previous the compose up
 - PASSWORD=
 - SUDO_PASSWORD=
 - PROXY_DOMAIN=
 - VIRTUAL_HOST=
 - LETSENCRYPT_HOST=
+
+When VSCode are started, you can adjust the username and email for git use, with the terminal. (Menu-> New Terminal)
 
 ## License
 
